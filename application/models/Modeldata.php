@@ -6,9 +6,6 @@ class Modeldata extends CI_Model
     {
         parent::__construct();
 
-
-        $this->dekos = $this->load->database('dekos', true);
-        $this->nikmus = $this->load->database('nikmus', true);
         $this->sentral = $this->load->database('sentral', true);
     }
 
