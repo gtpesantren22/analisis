@@ -150,12 +150,13 @@ doctype html>
                         <a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
                             <div class="parent-icon"><i class='bx bx-in'></i>
                             </div>
-                            <div class="menu-title">Pemasukan Formal</div>
+                            <div class="menu-title">Analisis Formal</div>
                         </a>
                         <ul class="dropdown-menu">
                             <li> <a class="dropdown-item" href="<?= base_url('masuk/bp') ?>"><i class="bx bx-right-arrow-alt"></i>Pembayaran BP</a></li>
                             <li> <a class="dropdown-item" href="<?= base_url('masuk/bos') ?>"><i class="bx bx-right-arrow-alt"></i>BOS/BPOPP</a></li>
                             <li> <a class="dropdown-item" href="<?= base_url('masuk/total') ?>"><i class="bx bx-right-arrow-alt"></i>Total Pemasukan</a></li>
+                            <li> <a class="dropdown-item" href="<?= base_url('masuk/pagu') ?>"><i class="bx bx-right-arrow-alt"></i>Pagu Final</a></li>
                         </ul>
                     </li>
                 </ul>
