@@ -66,7 +66,7 @@ class Masuk extends CI_Controller
     public function paguTampil()
     {
         $data['bosRekap'] = $this->model->buatView($this->tahun);
-        $data['view2'] = $this->model->buatView($this->tahun);
+        $data['view2'] = $this->model->buatView2($this->tahun);
         $data['hasil'] = $this->model->hitungPagu($this->tahun)->result();
 
         $this->load->view('tampil/paguTampil', $data);
