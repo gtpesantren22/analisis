@@ -67,6 +67,7 @@
                  <th id=""></th>
                  <th id="total_flListrik"></th>
                  <th id=""></th>
+                 <th id=""></th>
                  <th id="total_flListrikSisa"></th>
                  <th id="total_bpopp"></th>
                  <th id=""></th>

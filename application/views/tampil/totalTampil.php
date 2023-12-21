@@ -25,7 +25,7 @@
                     <td class="amount2_bos"><?= rupiah($riw->bos) ?></td>
                     <td class="amount2_total"><?= rupiah($total) ?></td>
                     <td><?= $riw->potongan ?>%</td>
-                    <td class="amount2_potong"><?= rupiah($potong) ?></td>
+                    <td class="amount2_potong" id="amount2_potong"><?= rupiah($potong) ?></td>
                     <td class="amount2_akhir"><?= rupiah($total - $potong) ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -57,4 +57,8 @@
     calculateTotal('hitungTotal', 'amount2_total', 'total_total');
     calculateTotal('hitungTotal', 'amount2_potong', 'total_potong');
     calculateTotal('hitungTotal', 'amount2_akhir', 'total_kahiran');
+
+
+    var totalBelanja = document.getElementById('total_potong').textContent;
+    localStorage.setItem('total_potong', totalBelanja);
 </script>

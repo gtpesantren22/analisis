@@ -20,6 +20,7 @@ doctype html>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="<?= base_url('temp/') ?>assets/css/app.css" rel="stylesheet">
     <link href="<?= base_url('temp/') ?>assets/css/icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('temp/') ?>assets/plugins/sw/sweetalert2.min.css" />
     <!-- Theme Style CSS -->
     <link rel="stylesheet" href="<?= base_url('temp/') ?>assets/css/dark-theme.css" />
     <link rel="stylesheet" href="<?= base_url('temp/') ?>assets/css/semi-dark.css" />
@@ -159,7 +160,17 @@ doctype html>
                             <li> <a class="dropdown-item" href="<?= base_url('masuk/pagu') ?>"><i class="bx bx-right-arrow-alt"></i>Pagu Final</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('lanjut') ?>">
+                            <div class="parent-icon"><i class='bx bx-home-circle'></i>
+                            </div>
+                            <div class="menu-title">Analisis Lanjutan</div>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
         <!--end navigation-->
+
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('ok') ?>"></div>
+        <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('error') ?>"></div>

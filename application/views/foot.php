@@ -81,6 +81,8 @@
 <script src="<?= base_url('temp/') ?>assets/plugins/metismenu/js/metisMenu.min.js"></script>
 <script src="<?= base_url('temp/') ?>assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
 <!--app JS-->
+<script src="<?= base_url('temp/') ?>assets/plugins/sw/sweetalert2.min.js"></script>
+<script src="<?= base_url('temp/') ?>assets/plugins/sw/my-notif.js"></script>
 <script src="<?= base_url('temp/') ?>assets/js/app.js"></script>
 </body>
 
