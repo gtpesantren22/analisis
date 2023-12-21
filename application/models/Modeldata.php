@@ -6,7 +6,6 @@ class Modeldata extends CI_Model
     {
         parent::__construct();
 
-        $this->sentral = $this->load->database('sentral', true);
         $this->kasir = $this->load->database('kasir', true);
         $this->santri = $this->load->database('santri', true);
     }
