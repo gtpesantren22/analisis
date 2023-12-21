@@ -83,7 +83,7 @@ $db['default'] = array(
 
 	// 'username' => 'u9048253_dwk',
 	// 'password' => 'PesantrenDWKIT2021',
-	// 'database' => 'u9048253_sentral',
+	// 'database' => 'u9048253_analisis',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
