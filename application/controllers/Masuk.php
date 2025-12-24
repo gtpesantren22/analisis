@@ -56,7 +56,7 @@ class Masuk extends CI_Controller
         $rekapBos = [];
         foreach ($query->result() as $row) {
             $rekapBos[$row->kode_lembaga] = $row;
-            $this->model->edit2('fluk_bos', 'lembaga', $row->kode_lembaga, 'tahun', $this->tahun, ['bos' => $row->bos, 'bpopp' => $row->bpopp]);
+            $this->model->edit2('fluk_bos', 'kode_lembaga', $row->kode_lembaga, 'tahun', $this->tahun, ['bos' => $row->bos, 'bpopp' => $row->bpopp]);
         }
 
         // MASTER FLAG LEMBAGA
