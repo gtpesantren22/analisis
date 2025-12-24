@@ -63,14 +63,10 @@ class Masuk extends CI_Controller
         $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
 
         // MAP KODE → NAMA
-        $mapLembaga = [
-            '04' => 'MI',
-            '05' => 'RA',
-            '06' => 'MTs',
-            '07' => 'SMP',
-            '08' => 'MA',
-            '09' => 'SMK',
-        ];
+        $mapLembaga = [];
+        foreach ($dtboses as $row) {
+            $mapLembaga[$row->kode_lembaga] = $row->lembaga;
+        }
 
         $bosrekap = [];
 
