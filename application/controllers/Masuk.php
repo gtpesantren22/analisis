@@ -41,14 +41,14 @@ class Masuk extends CI_Controller
     public function bosTampil()
     {
         $sql = "
-    SELECT 
-        lembaga AS kode_lembaga,
-        SUM(CASE WHEN uraian LIKE '%BOS%' THEN nominal ELSE 0 END) AS bos,
-        SUM(CASE WHEN uraian LIKE '%BOP%' THEN nominal ELSE 0 END) AS bpopp
-    FROM bos
-    WHERE tahun = ?
-    GROUP BY lembaga
-";
+            SELECT 
+                lembaga AS kode_lembaga,
+                SUM(CASE WHEN uraian LIKE '%BOS%' THEN nominal ELSE 0 END) AS bos,
+                SUM(CASE WHEN uraian LIKE '%BOP%' THEN nominal ELSE 0 END) AS bpopp
+            FROM bos
+            WHERE tahun = ?
+            GROUP BY lembaga
+        ";
 
         $query = $this->sentral->query($sql, [$this->tahun]);
 
@@ -56,6 +56,7 @@ class Masuk extends CI_Controller
         $rekapBos = [];
         foreach ($query->result() as $row) {
             $rekapBos[$row->kode_lembaga] = $row;
+            $this->model->edit2('fluk_bos', 'lembaga', $row->kode_lembaga, 'tahun', $this->tahun, ['bos' => $row->bos, 'bpopp' => $row->bpopp]);
         }
 
         // MASTER FLAG LEMBAGA

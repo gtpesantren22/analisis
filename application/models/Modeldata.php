@@ -30,7 +30,6 @@ class Modeldata extends CI_Model
 
     function buatView($tahun)
     {
-
         $kasir = $this->kasir->database;
         $santri = $this->santri->database;
 
@@ -94,5 +93,16 @@ class Modeldata extends CI_Model
     {
         $this->db->where($where, $dtwhere);
         $this->db->delete($tbl);
+    }
+    function edit($tbl, $where, $dtwhere, $data)
+    {
+        $this->db->where($where, $dtwhere);
+        $this->db->update($tbl, $data);
+    }
+    function edit2($tbl, $where, $dtwhere, $where2, $dtwhere2, $data)
+    {
+        $this->db->where($where, $dtwhere);
+        $this->db->where($where2, $dtwhere2);
+        $this->db->update($tbl, $data);
     }
 }
