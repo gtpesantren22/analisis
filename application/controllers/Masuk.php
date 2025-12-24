@@ -42,7 +42,7 @@ class Masuk extends CI_Controller
     {
         $bosrekap = [];
         $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
-        foreach ($dtboses as $dtbos) 
+        foreach ($dtboses as $dtbos) {
             $bos = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOS%' AND lembaga = '$dtbos->kode_lembaga' ");
             $bpopp = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOP%' AND lembaga = '$dtbos->kode_lembaga' ");
 
