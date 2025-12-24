@@ -41,17 +41,38 @@ class Masuk extends CI_Controller
     public function bosTampil()
     {
         $bosrekap = [];
+
+        $sql = "
+        SELECT 
+        lembaga,
+        SUM(CASE WHEN uraian LIKE '%BOS%' THEN nominal ELSE 0 END) AS bos,
+        SUM(CASE WHEN uraian LIKE '%BOP%' THEN nominal ELSE 0 END) AS bpopp
+            FROM bos
+            WHERE tahun = ?
+            GROUP BY lembaga
+        ";
+
+        $query = $this->sentral->query($sql, [$this->tahun]);
+
+        // Ambil master lembaga
         $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
+
+        $rekapMap = [];
+        foreach ($query->result() as $row) {
+            $rekapMap[$row->lembaga] = $row;
+        }
+
+        // Gabungkan dengan flag lembaga
         foreach ($dtboses as $dtbos) {
-            $bos = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOS%' AND lembaga = '$dtbos->kode_lembaga' ");
-            $bpopp = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOP%' AND lembaga = '$dtbos->kode_lembaga' ");
+
+            $rekap = $rekapMap[$dtbos->lembaga] ?? null;
 
             $bosrekap[] = (object)[
-                'bos' => $bos->row('jml'),
-                'bpopp' => $bpopp->row('jml'),
-                'fl_bos' => $dtbos->fl_bos,
-                'fl_bpopp' => $dtbos->fl_bpopp,
-                'lembaga' => $dtbos->lembaga,
+                'lembaga'   => $dtbos->lembaga,
+                'bos'       => (float) ($rekap->bos ?? 0),
+                'bpopp'     => (float) ($rekap->bpopp ?? 0),
+                'fl_bos'    => $dtbos->fl_bos,
+                'fl_bpopp'  => $dtbos->fl_bpopp,
             ];
         }
 
