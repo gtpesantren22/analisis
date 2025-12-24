@@ -40,8 +40,6 @@ class Masuk extends CI_Controller
     }
     public function bosTampil()
     {
-        $bosrekap = [];
-
         $sql = "
     SELECT 
         lembaga AS kode_lembaga,
@@ -54,20 +52,36 @@ class Masuk extends CI_Controller
 
         $query = $this->sentral->query($sql, [$this->tahun]);
 
-        $rekapMap = [];
+        // MAP hasil BOS by kode
+        $rekapBos = [];
         foreach ($query->result() as $row) {
-            $rekapMap[$row->kode_lembaga] = $row;
+            $rekapBos[$row->kode_lembaga] = $row;
         }
 
-        // MASTER LEMBAGA
+        // MASTER FLAG LEMBAGA
         $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
+
+        // MAP KODE → NAMA
+        $mapLembaga = [
+            '04' => 'MI',
+            '05' => 'RA',
+            '06' => 'MTs',
+            '07' => 'SMP',
+            '08' => 'MA',
+            '09' => 'SMK',
+        ];
+
+        $bosrekap = [];
 
         foreach ($dtboses as $dtbos) {
 
-            $rekap = $rekapMap[$dtbos->kode_lembaga] ?? null;
+            // cari kode berdasarkan nama
+            $kode = array_search($dtbos->lembaga, $mapLembaga);
+
+            $rekap = $rekapBos[$kode] ?? null;
 
             $bosrekap[] = (object)[
-                'lembaga'   => $dtbos->lembaga,        // nama
+                'lembaga'   => $dtbos->lembaga,
                 'bos'       => (float) ($rekap->bos ?? 0),
                 'bpopp'     => (float) ($rekap->bpopp ?? 0),
                 'fl_bos'    => $dtbos->fl_bos,
