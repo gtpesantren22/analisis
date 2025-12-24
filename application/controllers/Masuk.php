@@ -43,32 +43,31 @@ class Masuk extends CI_Controller
         $bosrekap = [];
 
         $sql = "
-        SELECT 
-        lembaga,
+    SELECT 
+        lembaga AS kode_lembaga,
         SUM(CASE WHEN uraian LIKE '%BOS%' THEN nominal ELSE 0 END) AS bos,
         SUM(CASE WHEN uraian LIKE '%BOP%' THEN nominal ELSE 0 END) AS bpopp
-            FROM bos
-            WHERE tahun = ?
-            GROUP BY lembaga
-        ";
+    FROM bos
+    WHERE tahun = ?
+    GROUP BY lembaga
+";
 
         $query = $this->sentral->query($sql, [$this->tahun]);
 
-        // Ambil master lembaga
-        $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
-
         $rekapMap = [];
         foreach ($query->result() as $row) {
-            $rekapMap[$row->lembaga] = $row;
+            $rekapMap[$row->kode_lembaga] = $row;
         }
 
-        // Gabungkan dengan flag lembaga
+        // MASTER LEMBAGA
+        $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
+
         foreach ($dtboses as $dtbos) {
 
-            $rekap = $rekapMap[$dtbos->lembaga] ?? null;
+            $rekap = $rekapMap[$dtbos->kode_lembaga] ?? null;
 
             $bosrekap[] = (object)[
-                'lembaga'   => $dtbos->lembaga,
+                'lembaga'   => $dtbos->lembaga,        // nama
                 'bos'       => (float) ($rekap->bos ?? 0),
                 'bpopp'     => (float) ($rekap->bpopp ?? 0),
                 'fl_bos'    => $dtbos->fl_bos,
