@@ -15,11 +15,10 @@ class Masuk extends CI_Controller
         $this->load->model('Modeldata', 'model');
 
         $this->tahun = $this->session->userdata('tahun');
+        $this->sentral = $this->load->database('sentral', true);
     }
 
-    public function index()
-    {
-    }
+    public function index() {}
 
     public function bp()
     {
@@ -41,7 +40,22 @@ class Masuk extends CI_Controller
     }
     public function bosTampil()
     {
-        $data['bosRekap'] = $this->model->getBosByLembaga($this->tahun)->result();
+        $bosrekap = [];
+        $dtboses = $this->model->getBosByLembaga($this->tahun)->result();
+        foreach ($dtboses as $dtbos) 
+            $bos = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOS%' AND lembaga = '$dtbos->kode_lembaga' ");
+            $bpopp = $this->sentral->query("SELECT SUM(nominal) as jml FROM bos WHERE tahun = '$this->tahun' AND uraian LIKE '%BOP%' AND lembaga = '$dtbos->kode_lembaga' ");
+
+            $bosrekap[] = (object)[
+                'bos' => $bos->row('jml'),
+                'bpopp' => $bpopp->row('jml'),
+                'fl_bos' => $dtbos->fl_bos,
+                'fl_bpopp' => $dtbos->fl_bpopp,
+                'lembaga' => $dtbos->lembaga,
+            ];
+        }
+
+        $data['bosRekap'] = $bosrekap;
         $this->load->view('tampil/bosTampil', $data);
     }
 
